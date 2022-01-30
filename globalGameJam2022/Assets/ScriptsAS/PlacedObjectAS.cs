@@ -37,4 +37,9 @@ public class PlacedObjectAS : MonoBehaviour
     {
         return objectName;
     }
+
+    public AbstractObjectAS.Dir GetDir()
+    {
+        return dir;
+    }
 }

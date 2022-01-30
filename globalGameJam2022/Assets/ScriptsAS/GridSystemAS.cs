@@ -11,11 +11,10 @@ public class GridSystemAS : MonoBehaviour
 
     private PlacedObjectAS placedObjectForDeletion;
     private List<Vector2Int> coordinatesForDeletion;
-    private AbstractObjectAS.Dir lastDir = AbstractObjectAS.Dir.Down;
-    private Vector3 lastOrigin;
 
     public List<Vector2Int> nullZones;
     public List<Vector2Int> inventorySlots;
+    public List<Vector2Int> backpackSlots;
     public List<Vector2Int> handSlots;
     public List<Vector2Int> trashSlot;
 
@@ -32,6 +31,12 @@ public class GridSystemAS : MonoBehaviour
     public int gridHeight = 18;
     public float cellSize = 3f;
     public GameObject gridTile;
+
+    private GridObjectAS gridObjectForMouseDown;
+    private PlacedObjectAS placedObjectForMouseDown;
+
+    private bool haveFlashlight = false;
+    private bool encounterEnemy = false;
 
     private void Awake()
     {
@@ -130,6 +135,9 @@ public class GridSystemAS : MonoBehaviour
         }
 
         SpawnItem(absObjectList[1], pendantLoc[0].x, pendantLoc[0].y, rotationOffset.x, rotationOffset.y);
+        SpawnItem(absObjectList[2], 4, 6, rotationOffset.x, rotationOffset.y);
+        SpawnItem(absObjectList[3], 8, 3, rotationOffset.x, rotationOffset.y);
+        SpawnItem(absObjectList[3], 8, 5, rotationOffset.x, rotationOffset.y);
     }
 
     private void GhostFollow(AbstractObjectAS abs)
@@ -169,24 +177,28 @@ public class GridSystemAS : MonoBehaviour
         //print(Mouse3DAS.GetMouseWorldPosition().x + ", " + Mouse3DAS.GetMouseWorldPosition().y);
         if (Input.GetMouseButton(0) && MouseIsInGrid())
         {
-            GridObjectAS gridObject = grid.GetGridObject(Mouse3DAS.GetMouseWorldPosition());
-            PlacedObjectAS placedObject = gridObject.GetPlacedObject();
+            if (absObject == null)
+            {
+                gridObjectForMouseDown = grid.GetGridObject(Mouse3DAS.GetMouseWorldPosition());
+                placedObjectForMouseDown = gridObjectForMouseDown.GetPlacedObject();
+            }
 
-            //Replace with right click
+            //print(placedObjectForMouseDown.GetObjectName());
+
             if (Input.GetMouseButtonDown(1))
             {
                 dir = AbstractObjectAS.GetNextDir(dir);
                 print(dir);
             }
 
-            if (placedObject != null && placedObject.GetObjectName() != "Null Object")
+            if (placedObjectForMouseDown != null && placedObjectForMouseDown.GetObjectName() != "Null Object")
             {
                 ghostFollow = true;
 
                 //Debug.Log(placedObject.GetObjectName());
-                absObject = placedObject.GetComponent<AbstractObjectAS>();
+                absObject = placedObjectForMouseDown.GetComponent<AbstractObjectAS>();
 
-                placedObjectForDeletion = placedObject;
+                placedObjectForDeletion = placedObjectForMouseDown;
                 coordinatesForDeletion = placedObjectForDeletion.GetGridPositionList();
             }
 
@@ -256,6 +268,65 @@ public class GridSystemAS : MonoBehaviour
         Inventory();
     }
 
+    public void SetEncounterEnemy(bool b)
+    {
+        encounterEnemy = b;
+    }
+
+    public void BatteryLogic()
+    {
+        foreach (Vector2Int hand in handSlots)
+        {
+            GridObjectAS objectInHandSlot = grid.GetGridObject(new Vector3(hand.x, hand.y));
+            PlacedObjectAS placedObjectFromHand = objectInHandSlot.GetPlacedObject();
+            if (placedObjectFromHand.GetObjectName() == "Flashlight")
+            {
+                haveFlashlight = true;
+                break;
+            }
+            haveFlashlight = false;
+        }
+
+        if (haveFlashlight && encounterEnemy)
+        {
+            BatteryObjAS battery = null;
+            GridObjectAS objectInBackpack = null;
+            PlacedObjectAS placedObjectInBackpack = null;
+            List<Vector2Int> batteryLoc = null;
+            foreach (Vector2Int slot in backpackSlots)
+            {
+                objectInBackpack = grid.GetGridObject(new Vector3(slot.x, slot.y));
+                placedObjectInBackpack = objectInBackpack.GetPlacedObject();
+
+                if (placedObjectInBackpack.GetObjectName() == "Battery")
+                {
+                    battery = placedObjectInBackpack.GetComponent<BatteryObjAS>();
+                    batteryLoc = placedObjectInBackpack.GetComponent<AbstractObjectAS>().GetGridPositionList(new Vector2Int(slot.x, slot.y), placedObjectInBackpack.GetDir()); ;
+                    break;
+                }
+            }
+
+            float currentBatteryLife = battery.GetBatteryLife();
+            if (currentBatteryLife > 0)
+            {
+                battery.SetBatteryLife(currentBatteryLife -= Time.deltaTime);
+            }
+            else
+            {
+                if (absObject != null && absObject.GetComponent<PlacedObjectAS>() == battery)
+                {
+                    ClearAbsAndGhost();
+                    DeleteOldObject();
+                }
+                battery.GetComponent<PlacedObjectAS>().DestroySelf();
+                foreach (Vector2Int batterySpot in batteryLoc)
+                {
+                    grid.GetGridObject(batterySpot.x, batterySpot.y).ClearPlacedObject();
+                }
+            }
+        }
+    }
+
     public void ClearAbsAndGhost()
     {
         absObject = null;
@@ -277,16 +348,33 @@ public class GridSystemAS : MonoBehaviour
 
     public void Inventory()
     {
+        inventoryClear = true;
+        if (inventoryClear == false)
+        {
+            //Spawn Set items
+
+        }
+
         if (Input.GetKeyDown(KeyCode.Space) && inventoryClear == true)
         {
             foreach (Vector2Int coordinate in inventorySlots)
             {
                 GridObjectAS gridObject = grid.GetGridObject(coordinate.x, coordinate.y);
                 PlacedObjectAS placedObject = gridObject.GetPlacedObject();
-                if (placedObject != null && placedObject.GetObjectName() != "Null Object") { placedObject.DestroySelf(); }
+                if (placedObject != null && placedObject.GetObjectName() != "Null Object")
+                {
+                    if (absObject != null && absObject.GetComponent<PlacedObjectAS>() == placedObject)
+                    {
+                        ClearAbsAndGhost();
+                        DeleteOldObject();
+                    }
+                    placedObject.DestroySelf();
+
+                }
 
                 grid.GetGridObject(coordinate.x, coordinate.y).ClearPlacedObject();
             }
+            
         }
     }
 
@@ -301,6 +389,19 @@ public class GridSystemAS : MonoBehaviour
                 canBuild = false;
                 break;
             }
+        }
+    }
+
+    public void ConsumeHand()
+    {
+        //consume item
+        foreach (Vector2Int coordinate in handSlots)
+        {
+            GridObjectAS gridObject = grid.GetGridObject(coordinate.x, coordinate.y);
+            PlacedObjectAS placedObject = gridObject.GetPlacedObject();
+            if (placedObject != null && placedObject.GetObjectName() != "Null Object") { placedObject.DestroySelf(); }
+
+            grid.GetGridObject(coordinate.x, coordinate.y).ClearPlacedObject();
         }
     }
 

@@ -56,8 +56,8 @@ public class GameGridAS<TGridObject>
 
             OnGridValueChanged += (object sender, OnGridValueChangedEventArgs eventArgs) =>
             {
-                debugTextArray[eventArgs.x, eventArgs.y].text = gridArray[eventArgs.x, eventArgs.y]?.ToString();
-                //debugTextArray[eventArgs.x, eventArgs.y].text = "XX";
+                //debugTextArray[eventArgs.x, eventArgs.y].text = gridArray[eventArgs.x, eventArgs.y]?.ToString();
+                debugTextArray[eventArgs.x, eventArgs.y].text = "XX";
             };
         }
     }
