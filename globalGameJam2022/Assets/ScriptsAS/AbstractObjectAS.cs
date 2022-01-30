@@ -5,10 +5,12 @@ using UnityEngine;
 public class AbstractObjectAS : MonoBehaviour
 {
     public enum Dir { Down, Left, Up, Right };
+    public enum Typ { Action, Passive, None};
 
     public string nameString;
     public Transform prefab;
     public Transform visual;
+    public Typ objType;
 
     public List<Vector2Int> downCoordinatesList;
     public List<Vector2Int> leftCoordinatesList;
@@ -105,5 +107,10 @@ public class AbstractObjectAS : MonoBehaviour
     public Transform GetPrefab()
     {
         return prefab;
+    }
+
+    public Typ GetObjType()
+    {
+        return objType;
     }
 }

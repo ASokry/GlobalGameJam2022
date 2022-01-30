@@ -267,6 +267,9 @@ MonoBehaviour:
   - {fileID: 8989757780797547021, guid: 50a14f90c7dad40479e5ed1320f7d4ad, type: 3}
   - {fileID: 8002573895531770540, guid: 1c68bb2c8142208449cd017c21cd02c4, type: 3}
   - {fileID: 385421973774059095, guid: 30fdf09dbebec56489e637045390b711, type: 3}
+  - {fileID: 8950423576318772191, guid: 774dd229f1e205e4a92ad914856939d4, type: 3}
+  - {fileID: 4973130578714808395, guid: e1b71436a6b8bee4688ef362cae8986f, type: 3}
+  - {fileID: 7276992081292489910, guid: 8939e19af319d8646a2d0efe296d4ff1, type: 3}
   pendantLoc:
   - {x: 9, y: 2}
   nullZones:
@@ -427,6 +430,22 @@ MonoBehaviour:
   - {x: 20, y: 5}
   - {x: 20, y: 6}
   - {x: 20, y: 7}
+  handSlots:
+  - {x: 3, y: 4}
+  - {x: 3, y: 5}
+  - {x: 3, y: 6}
+  - {x: 3, y: 7}
+  - {x: 3, y: 8}
+  - {x: 4, y: 4}
+  - {x: 4, y: 5}
+  - {x: 4, y: 6}
+  - {x: 4, y: 7}
+  - {x: 4, y: 8}
+  - {x: 5, y: 4}
+  - {x: 5, y: 5}
+  - {x: 5, y: 6}
+  - {x: 5, y: 7}
+  - {x: 5, y: 8}
   trashSlot:
   - {x: 4, y: 1}
   gridWidth: 23

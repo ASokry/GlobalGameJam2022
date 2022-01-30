@@ -16,6 +16,7 @@ public class GridSystemAS : MonoBehaviour
 
     public List<Vector2Int> nullZones;
     public List<Vector2Int> inventorySlots;
+    public List<Vector2Int> handSlots;
     public List<Vector2Int> trashSlot;
 
     private Transform ghostObject;
@@ -23,6 +24,9 @@ public class GridSystemAS : MonoBehaviour
 
     private GameGridAS<GridObjectAS> grid;
     private AbstractObjectAS.Dir dir = AbstractObjectAS.Dir.Down;
+
+    private bool canBuild = true;
+    private bool inventoryClear = false;
 
     public int gridWidth = 60;
     public int gridHeight = 18;
@@ -96,15 +100,15 @@ public class GridSystemAS : MonoBehaviour
         }
     }
 
-    private void SpawnItem(int rotationOffsetX, int rotationOffsetY)
+    private void SpawnItem(AbstractObjectAS absObj, int objPosX, int objPosY, int rotationOffsetX, int rotationOffsetY)
     {
-        Vector3 pendantPosition = grid.GetWorldPosition(pendantLoc[0].x, pendantLoc[0].y) + new Vector3(rotationOffsetX, rotationOffsetY, 0) * grid.GetCellSize();
+        Vector3 pendantPosition = grid.GetWorldPosition(objPosX, objPosY) + new Vector3(rotationOffsetX, rotationOffsetY, 0) * grid.GetCellSize();
 
-        PlacedObjectAS pendantItem = PlacedObjectAS.Create(pendantPosition, new Vector2Int(pendantLoc[0].x, pendantLoc[0].y), dir, absObjectList[1]);
+        PlacedObjectAS pendantItem = PlacedObjectAS.Create(pendantPosition, new Vector2Int(objPosX, objPosY), dir, absObj);
 
-        grid.GetGridObject(pendantLoc[0].x, pendantLoc[0].y).SetPlacedObject(pendantItem);
+        grid.GetGridObject(objPosX, objPosY).SetPlacedObject(pendantItem);
 
-        List<Vector2Int> firstItemPositionList = absObjectList[1].GetGridPositionList(new Vector2Int(pendantLoc[0].x, pendantLoc[0].y), dir);
+        List<Vector2Int> firstItemPositionList = absObj.GetGridPositionList(new Vector2Int(objPosX, objPosY), dir);
         foreach (Vector2Int gridPosition in firstItemPositionList)
         {
             grid.GetGridObject(gridPosition.x, gridPosition.y).SetPlacedObject(pendantItem);
@@ -125,21 +129,7 @@ public class GridSystemAS : MonoBehaviour
             grid.GetGridObject(coordinate.x, coordinate.y).SetPlacedObject(placedObject);
         }
 
-        SpawnItem(rotationOffset.x, rotationOffset.y);
-
-        ////
-        Vector3 firstItemWorldPosition = grid.GetWorldPosition(18, 3) + new Vector3(rotationOffset.x, rotationOffset.y, 0) * grid.GetCellSize();
-
-        PlacedObjectAS firstItem = PlacedObjectAS.Create(firstItemWorldPosition, new Vector2Int(18, 3), dir, absObjectList[2]);
-
-        grid.GetGridObject(18, 3).SetPlacedObject(firstItem);
-
-        List<Vector2Int> firstItemPositionList = absObjectList[2].GetGridPositionList(new Vector2Int(18, 3), dir);
-        foreach (Vector2Int gridPosition in firstItemPositionList)
-        {
-            grid.GetGridObject(gridPosition.x, gridPosition.y).SetPlacedObject(firstItem);
-        }
-        /////
+        SpawnItem(absObjectList[1], pendantLoc[0].x, pendantLoc[0].y, rotationOffset.x, rotationOffset.y);
     }
 
     private void GhostFollow(AbstractObjectAS abs)
@@ -217,7 +207,7 @@ public class GridSystemAS : MonoBehaviour
 
             List<Vector2Int> gridPositionList = absObject.GetGridPositionList(new Vector2Int(x, y), dir);
 
-            bool canBuild = true;
+            canBuild = true;
             foreach (Vector2Int gridPosition in gridPositionList)
             {
                 //print(gridPosition.ToString());
@@ -237,6 +227,8 @@ public class GridSystemAS : MonoBehaviour
 
                 //print(canBuild);
             }
+
+            HandSlot();
 
             if (canBuild)
             {
@@ -285,7 +277,7 @@ public class GridSystemAS : MonoBehaviour
 
     public void Inventory()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && inventoryClear == true)
         {
             foreach (Vector2Int coordinate in inventorySlots)
             {
@@ -294,6 +286,20 @@ public class GridSystemAS : MonoBehaviour
                 if (placedObject != null && placedObject.GetObjectName() != "Null Object") { placedObject.DestroySelf(); }
 
                 grid.GetGridObject(coordinate.x, coordinate.y).ClearPlacedObject();
+            }
+        }
+    }
+
+    public void HandSlot()
+    {
+        foreach (Vector2Int hand in handSlots)
+        {
+            grid.GetXY(Mouse3DAS.GetMouseWorldPosition(), out int x, out int y);
+            Vector2Int mousePosOnGrid = new Vector2Int(x, y);
+            if (absObject != null && hand == mousePosOnGrid && absObject.GetObjType() != AbstractObjectAS.Typ.Action)
+            {
+                canBuild = false;
+                break;
             }
         }
     }

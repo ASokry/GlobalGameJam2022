@@ -60,6 +60,7 @@ MonoBehaviour:
   nameString: Null Object
   prefab: {fileID: 1688430562080074373}
   visual: {fileID: 4839627800178734861, guid: 75a54534a79db3e48afc38e9344f32b3, type: 3}
+  objType: 2
   downCoordinatesList:
   - {x: 0, y: 0}
   leftCoordinatesList:
