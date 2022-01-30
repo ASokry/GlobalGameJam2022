@@ -1,34 +1,22 @@
 fileFormatVersion: 2
-guid: 7971630fd62d84746b08d1513571f3b3
+guid: 6788bdbedbfad9f459abc83ae178078f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7152930139536384079
-    second: character_0
+      213: 284758177219787104
+    second: pig jiggle sprite sheet (1)_0
   - first:
-      213: -5725962078152895296
-    second: character_1
+      213: -8141516021754365949
+    second: pig jiggle sprite sheet (1)_1
   - first:
-      213: -8401692288953904933
-    second: character_2
+      213: -4493432872945301012
+    second: pig jiggle sprite sheet (1)_2
   - first:
-      213: 7888922196035610388
-    second: character_3
+      213: -400194309167193674
+    second: pig jiggle sprite sheet (1)_3
   - first:
-      213: -8090365562718305141
-    second: character_4
-  - first:
-      213: 3445332486847661990
-    second: character_5
-  - first:
-      213: 7456334905099763947
-    second: character_6
-  - first:
-      213: 5377859178988851676
-    second: character_7
-  - first:
-      213: -4124168217499134943
-    second: character_8
+      213: -1983489981614277078
+    second: pig jiggle sprite sheet (1)_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -59,7 +47,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -142,139 +130,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: character_0
+      name: pig jiggle sprite sheet (1)_0
       rect:
         serializedVersion: 2
-        x: 13
-        y: 103
-        width: 54
-        height: 96
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f4060466010544360800000000000000
-      internalID: 7152930139536384079
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: character_1
-      rect:
-        serializedVersion: 2
-        x: 113
-        y: 102
-        width: 53
-        height: 98
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0c4d65ec3db4980b0800000000000000
-      internalID: -5725962078152895296
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: character_2
-      rect:
-        serializedVersion: 2
-        x: 200
-        y: 103
-        width: 54
-        height: 96
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bd093c49061376b80800000000000000
-      internalID: -8401692288953904933
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: character_3
-      rect:
-        serializedVersion: 2
-        x: 275
-        y: 102
-        width: 53
-        height: 98
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 417a563a0f41b7d60800000000000000
-      internalID: 7888922196035610388
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: character_4
-      rect:
-        serializedVersion: 2
-        x: 348
-        y: 102
-        width: 52
-        height: 96
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b844f13a26f39bf80800000000000000
-      internalID: -8090365562718305141
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: character_5
-      rect:
-        serializedVersion: 2
-        x: 13
-        y: 5
-        width: 59
-        height: 86
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6a70ba384a740df20800000000000000
-      internalID: 3445332486847661990
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: character_6
-      rect:
-        serializedVersion: 2
-        x: 103
-        y: 5
-        width: 73
-        height: 63
+        x: 32
+        y: 12
+        width: 44
+        height: 138
       alignment: 2
       pivot: {x: 0.5, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -282,20 +144,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be041d047193a7760800000000000000
-      internalID: 7456334905099763947
+      spriteID: 069b210bd0aa3f300800000000000000
+      internalID: 284758177219787104
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: character_7
+      name: pig jiggle sprite sheet (1)_1
       rect:
         serializedVersion: 2
-        x: 207
-        y: 7
-        width: 73
-        height: 63
+        x: 95
+        y: 22
+        width: 48
+        height: 128
       alignment: 2
       pivot: {x: 0.5, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -303,20 +165,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd154bf1e6ef1aa40800000000000000
-      internalID: 5377859178988851676
+      spriteID: 308fd265056830f80800000000000000
+      internalID: -8141516021754365949
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: character_8
+      name: pig jiggle sprite sheet (1)_2
       rect:
         serializedVersion: 2
-        x: 304
-        y: 9
-        width: 72
-        height: 54
+        x: 146
+        y: 35
+        width: 65
+        height: 115
       alignment: 2
       pivot: {x: 0.5, y: 1}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -324,8 +186,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12412026bd204c6c0800000000000000
-      internalID: -4124168217499134943
+      spriteID: ce9480afb9e14a1c0800000000000000
+      internalID: -4493432872945301012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig jiggle sprite sheet (1)_3
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 21
+        width: 55
+        height: 129
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b1e4f86569327af0800000000000000
+      internalID: -400194309167193674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: pig jiggle sprite sheet (1)_4
+      rect:
+        serializedVersion: 2
+        x: 290
+        y: 29
+        width: 57
+        height: 113
+      alignment: 2
+      pivot: {x: 0.5, y: 1}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2eb556ee5a3974e0800000000000000
+      internalID: -1983489981614277078
       vertices: []
       indices: 
       edges: []
@@ -333,7 +237,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: e7f5c82f7dae1f346b90e6c17db6e016
+    spriteID: 560a8b770bb1e8848a64084c2abfc506
     internalID: 0
     vertices: []
     indices: 
