@@ -51,4 +51,8 @@ public class PlayerMovement : MonoBehaviour
     {
 
     }
+    public void End()
+    {
+        curMovementSpeed = 0;
+    }
 }
