@@ -7,6 +7,7 @@ public class Mouse3DAS : MonoBehaviour
     public static Mouse3DAS Instance { get; private set; }
 
     [SerializeField] private LayerMask mouseColliderLayerMask = new LayerMask();
+    private Vector2 lastPos;
 
     private void Awake()
     {
@@ -30,11 +31,13 @@ public class Mouse3DAS : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, mouseColliderLayerMask))
         {
+            lastPos = raycastHit.point;
             return raycastHit.point;
         }
         else
         {
-            return new Vector3(0, 0);
+            return lastPos;
+            //return new Vector3(0, 0);
             //return new Vector3(-10,-10);
         }
     }
