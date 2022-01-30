@@ -7,12 +7,16 @@ public class GridSystemAS : MonoBehaviour
     [SerializeField] private List<AbstractObjectAS> absObjectList;
     private AbstractObjectAS absObject;
 
+    [SerializeField] private List<Vector2Int> pendantLoc;
+
     private PlacedObjectAS placedObjectForDeletion;
     private List<Vector2Int> coordinatesForDeletion;
     private AbstractObjectAS.Dir lastDir = AbstractObjectAS.Dir.Down;
     private Vector3 lastOrigin;
 
     public List<Vector2Int> nullZones;
+    public List<Vector2Int> inventorySlots;
+    public List<Vector2Int> trashSlot;
 
     private Transform ghostObject;
     private bool ghostFollow = false;
@@ -25,28 +29,9 @@ public class GridSystemAS : MonoBehaviour
     public float cellSize = 3f;
     public GameObject gridTile;
 
-    public Vector2Int nullOffsetPoint;
-    private List<Vector2Int> nullSpotsList = new List<Vector2Int>();
-    private List<Vector2Int> lootBoxList = new List<Vector2Int>();
-
     private void Awake()
     {
         grid = new GameGridAS<GridObjectAS>(gridWidth, gridHeight, cellSize, Vector3.zero, (GameGridAS<GridObjectAS> g, int x, int y) => new GridObjectAS(g, x, y));
-
-        for (int x = 0; x < gridHeight; x++)
-        {
-            nullSpotsList.Add(nullOffsetPoint + new Vector2Int(0, x));
-        }
-
-        int lootBoxWidth = gridWidth - (nullOffsetPoint.x + 1);
-        int lootBoxHeight = gridHeight - (nullOffsetPoint.y + 1);
-        for (int lx = 0; lx < lootBoxWidth; lx++)
-        {
-            for (int ly = 0; ly < lootBoxHeight; ly++)
-            {
-                lootBoxList.Add(nullOffsetPoint + new Vector2Int(lx + 1, ly + 1));
-            }
-        }
     }
 
     public class GridObjectAS
@@ -91,15 +76,44 @@ public class GridSystemAS : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void GenerateTiles()
     {
+        List<Vector2Int> entireGrid = new List<Vector2Int>();
         for (int x = 0; x < gridWidth; x++)
         {
             for (int y = 0; y < gridHeight; y++)
             {
-                GameObject tiles = Instantiate(gridTile, grid.GetWorldPosition(x, y), Quaternion.identity);
+                entireGrid.Add(new Vector2Int(x,y));
             }
         }
+
+        foreach (Vector2Int coordinates in entireGrid)
+        {
+            if (!nullZones.Contains(coordinates))
+            {
+                GameObject tiles = Instantiate(gridTile, grid.GetWorldPosition(coordinates.x, coordinates.y), Quaternion.identity);
+            }
+        }
+    }
+
+    private void SpawnItem(int rotationOffsetX, int rotationOffsetY)
+    {
+        Vector3 pendantPosition = grid.GetWorldPosition(pendantLoc[0].x, pendantLoc[0].y) + new Vector3(rotationOffsetX, rotationOffsetY, 0) * grid.GetCellSize();
+
+        PlacedObjectAS pendantItem = PlacedObjectAS.Create(pendantPosition, new Vector2Int(pendantLoc[0].x, pendantLoc[0].y), dir, absObjectList[1]);
+
+        grid.GetGridObject(pendantLoc[0].x, pendantLoc[0].y).SetPlacedObject(pendantItem);
+
+        List<Vector2Int> firstItemPositionList = absObjectList[1].GetGridPositionList(new Vector2Int(pendantLoc[0].x, pendantLoc[0].y), dir);
+        foreach (Vector2Int gridPosition in firstItemPositionList)
+        {
+            grid.GetGridObject(gridPosition.x, gridPosition.y).SetPlacedObject(pendantItem);
+        }
+    }
+
+    private void Start()
+    {
+        GenerateTiles();
 
         Vector2Int rotationOffset = new Vector2Int(0, 0);
         foreach (Vector2Int coordinate in nullZones)
@@ -111,14 +125,16 @@ public class GridSystemAS : MonoBehaviour
             grid.GetGridObject(coordinate.x, coordinate.y).SetPlacedObject(placedObject);
         }
 
+        SpawnItem(rotationOffset.x, rotationOffset.y);
+
         ////
         Vector3 firstItemWorldPosition = grid.GetWorldPosition(18, 3) + new Vector3(rotationOffset.x, rotationOffset.y, 0) * grid.GetCellSize();
 
-        PlacedObjectAS firstItem = PlacedObjectAS.Create(firstItemWorldPosition, new Vector2Int(18, 3), dir, absObjectList[1]);
+        PlacedObjectAS firstItem = PlacedObjectAS.Create(firstItemWorldPosition, new Vector2Int(18, 3), dir, absObjectList[2]);
 
         grid.GetGridObject(18, 3).SetPlacedObject(firstItem);
 
-        List<Vector2Int> firstItemPositionList = absObjectList[1].GetGridPositionList(new Vector2Int(18, 3), dir);
+        List<Vector2Int> firstItemPositionList = absObjectList[2].GetGridPositionList(new Vector2Int(18, 3), dir);
         foreach (Vector2Int gridPosition in firstItemPositionList)
         {
             grid.GetGridObject(gridPosition.x, gridPosition.y).SetPlacedObject(firstItem);
@@ -145,9 +161,23 @@ public class GridSystemAS : MonoBehaviour
         }
     }
 
+    private bool MouseIsInGrid()
+    {
+        Vector3 mousePos = Mouse3DAS.GetMouseWorldPosition();
+        int w = (int)cellSize * gridWidth;
+        int h = (int)cellSize * gridHeight;
+        if ((mousePos.x >= 0 && mousePos.y >= 0) && (mousePos.x < w && mousePos.y < h))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     private void Update()
     {
-        if (Input.GetMouseButton(0) && (Mouse3DAS.GetMouseWorldPosition().x > 0 && Mouse3DAS.GetMouseWorldPosition().y > 0))
+        //print(Mouse3DAS.GetMouseWorldPosition().x + ", " + Mouse3DAS.GetMouseWorldPosition().y);
+        if (Input.GetMouseButton(0) && MouseIsInGrid())
         {
             GridObjectAS gridObject = grid.GetGridObject(Mouse3DAS.GetMouseWorldPosition());
             PlacedObjectAS placedObject = gridObject.GetPlacedObject();
@@ -171,18 +201,18 @@ public class GridSystemAS : MonoBehaviour
             }
 
             GhostFollow(absObject);
+            
         }
         else if (Input.GetMouseButton(0) && absObject != null)
         {
             print("Out Bound!");
-            absObject = null;
-            Destroy(ghostObject.gameObject);
-            ghostObject = null;
-            ghostFollow = false;
+            ClearAbsAndGhost();
         }
 
-        if (Input.GetMouseButtonUp(0) && (Mouse3DAS.GetMouseWorldPosition().x > 0 && Mouse3DAS.GetMouseWorldPosition().y > 0) && absObject != null)
+        if (Input.GetMouseButtonUp(0) && MouseIsInGrid() && absObject != null)
         {
+            TrashSlot();
+
             grid.GetXY(Mouse3DAS.GetMouseWorldPosition(), out int x, out int y);
 
             List<Vector2Int> gridPositionList = absObject.GetGridPositionList(new Vector2Int(x, y), dir);
@@ -220,30 +250,44 @@ public class GridSystemAS : MonoBehaviour
                 {
                     grid.GetGridObject(gridPosition.x, gridPosition.y).SetPlacedObject(placedObjectCopy);
                 }
-                absObject = null;
-                Destroy(ghostObject.gameObject);
-                ghostObject = null;
-                ghostFollow = false;
-                
-                placedObjectForDeletion.DestroySelf();
-                foreach (Vector2Int deleteCoordinates in coordinatesForDeletion)
-                {
-                    grid.GetGridObject(deleteCoordinates.x, deleteCoordinates.y).ClearPlacedObject();
-                }
+
+                ClearAbsAndGhost();
+                DeleteOldObject();
             }
             else
             {
                 print("Cant build here!");
-                absObject = null;
-                Destroy(ghostObject.gameObject);
-                ghostObject = null;
-                ghostFollow = false;
+                ClearAbsAndGhost();
             }
         }
 
+        Inventory();
+    }
+
+    public void ClearAbsAndGhost()
+    {
+        absObject = null;
+        Destroy(ghostObject.gameObject);
+        ghostObject = null;
+        ghostFollow = false;
+    }
+
+    public void DeleteOldObject()
+    {
+        placedObjectForDeletion.DestroySelf();
+        foreach (Vector2Int deleteCoordinates in coordinatesForDeletion)
+        {
+            grid.GetGridObject(deleteCoordinates.x, deleteCoordinates.y).ClearPlacedObject();
+        }
+        coordinatesForDeletion = null;
+        placedObjectForDeletion = null;
+    }
+
+    public void Inventory()
+    {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            foreach (Vector2Int coordinate in lootBoxList)
+            foreach (Vector2Int coordinate in inventorySlots)
             {
                 GridObjectAS gridObject = grid.GetGridObject(coordinate.x, coordinate.y);
                 PlacedObjectAS placedObject = gridObject.GetPlacedObject();
@@ -251,6 +295,18 @@ public class GridSystemAS : MonoBehaviour
 
                 grid.GetGridObject(coordinate.x, coordinate.y).ClearPlacedObject();
             }
+        }
+    }
+
+    public void TrashSlot()
+    {
+        grid.GetXY(Mouse3DAS.GetMouseWorldPosition(), out int x, out int y);
+        Vector2Int mousePosOnGrid = new Vector2Int(x,y);
+        if (absObject != null && trashSlot[0] == mousePosOnGrid)
+        {
+            print("trash");
+            //ClearAbsAndGhost();
+            DeleteOldObject();
         }
     }
 }

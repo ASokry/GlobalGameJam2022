@@ -265,7 +265,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   absObjectList:
   - {fileID: 8989757780797547021, guid: 50a14f90c7dad40479e5ed1320f7d4ad, type: 3}
+  - {fileID: 8002573895531770540, guid: 1c68bb2c8142208449cd017c21cd02c4, type: 3}
   - {fileID: 385421973774059095, guid: 30fdf09dbebec56489e637045390b711, type: 3}
+  pendantLoc:
+  - {x: 9, y: 2}
   nullZones:
   - {x: 0, y: 0}
   - {x: 0, y: 1}
@@ -381,11 +384,55 @@ MonoBehaviour:
   - {x: 4, y: 3}
   - {x: 5, y: 2}
   - {x: 5, y: 3}
+  inventorySlots:
+  - {x: 15, y: 1}
+  - {x: 15, y: 2}
+  - {x: 15, y: 3}
+  - {x: 15, y: 4}
+  - {x: 15, y: 5}
+  - {x: 15, y: 6}
+  - {x: 15, y: 7}
+  - {x: 16, y: 1}
+  - {x: 16, y: 2}
+  - {x: 16, y: 3}
+  - {x: 16, y: 4}
+  - {x: 16, y: 5}
+  - {x: 16, y: 6}
+  - {x: 16, y: 7}
+  - {x: 17, y: 1}
+  - {x: 17, y: 2}
+  - {x: 17, y: 3}
+  - {x: 17, y: 4}
+  - {x: 17, y: 5}
+  - {x: 17, y: 6}
+  - {x: 17, y: 7}
+  - {x: 18, y: 1}
+  - {x: 18, y: 2}
+  - {x: 18, y: 3}
+  - {x: 18, y: 4}
+  - {x: 18, y: 5}
+  - {x: 18, y: 6}
+  - {x: 18, y: 7}
+  - {x: 19, y: 1}
+  - {x: 19, y: 2}
+  - {x: 19, y: 3}
+  - {x: 19, y: 4}
+  - {x: 19, y: 5}
+  - {x: 19, y: 6}
+  - {x: 19, y: 7}
+  - {x: 20, y: 1}
+  - {x: 20, y: 2}
+  - {x: 20, y: 3}
+  - {x: 20, y: 4}
+  - {x: 20, y: 5}
+  - {x: 20, y: 6}
+  - {x: 20, y: 7}
+  trashSlot:
+  - {x: 4, y: 1}
   gridWidth: 23
   gridHeight: 9
   cellSize: 3
   gridTile: {fileID: 3699492699511280528, guid: 960f9cba09d9836409c0cc0f8c256a87, type: 3}
-  nullOffsetPoint: {x: 0, y: 0}
 --- !u!4 &218695633
 Transform:
   m_ObjectHideFlags: 0
