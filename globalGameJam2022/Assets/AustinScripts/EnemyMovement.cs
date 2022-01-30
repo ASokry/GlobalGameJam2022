@@ -7,17 +7,18 @@ public class EnemyMovement : MonoBehaviour
     public float fastMovementSpeed;
     public float slowMovementSpeed;
     public float curMovementSpeed;
+    public float attackRange = 0.5f;
     public float health;
     public float curHealth;
     public GameObject player;
-    //private PlayerMovement playerMovement;
+    private PlayerMovement playerMovement;
     private float curTime;
     public GameObject levelManager;
     // Start is called before the first frame update
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        //playerMovement = player.GetComponent<PlayerMovement>();
+        playerMovement = player.GetComponent<PlayerMovement>();
         curMovementSpeed = fastMovementSpeed;
         curHealth = health;
         levelManager = GameObject.FindGameObjectWithTag("LevelManager");
@@ -50,11 +51,17 @@ public class EnemyMovement : MonoBehaviour
                 transform.Translate(Vector3.right * curMovementSpeed * Time.deltaTime);
             }
         }
+        print(Vector3.Distance(transform.position, player.transform.position));
+        if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
+        {
+
+            //player.SendMessage("Attacked", gameObject);
+            playerMovement.Attacked(gameObject);
+        }
 
         if(curHealth <= 0)
         {
-            levelManager.GetComponent<LevelManager>().enemies.Remove(gameObject);
-            Destroy(gameObject);
+            Die();
         }
 
     }
@@ -76,5 +83,10 @@ public class EnemyMovement : MonoBehaviour
     void Damage(float damage)
     {
         curHealth -= damage;
+    }
+    public void Die()
+    {
+        levelManager.GetComponent<LevelManager>().enemies.Remove(gameObject);
+        Destroy(gameObject);
     }
 }
