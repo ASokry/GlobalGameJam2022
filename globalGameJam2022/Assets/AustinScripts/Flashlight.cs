@@ -14,6 +14,12 @@ public class Flashlight : MonoBehaviour
     private float curTime;
 
     public GridSystemAS gridSys;
+    private float curTime2;
+    public float batteryUseRate = 20;
+    public float batteryUseTime = .05f;
+    public float maxBatteryUse;
+    public float currentBatteryUse;
+    public int batteryAmount = 2;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,27 +30,40 @@ public class Flashlight : MonoBehaviour
     void Update()
     {
         
-
-        Ray ray = new Ray(transform.position, Vector3.right);
-        RaycastHit hit;
-      
-
-        if(Physics.Raycast(ray, out hit))
+        if(batteryAmount > 0)
         {
-            print(hit);
-            if (hit.collider.tag == "Enemy")
-            {
-                directionToEnemy = hit.transform.position - transform.position;
 
-                if (Vector3.Angle(directionToEnemy, transform.right) >= spotLight.spotAngle && Vector3.Distance(hit.transform.position, transform.position) <= spotLight.range)
+            Ray ray = new Ray(transform.position, Vector3.right);
+            RaycastHit hit;
+
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                print(hit);
+                if (hit.collider.tag == "Enemy")
                 {
-                    curTime += Time.deltaTime;
-                    hit.transform.gameObject.SendMessage("FlashlightSlow", stunRate);
-                    gridSys.SetEncounterEnemy(true);
-                    if(curTime >= damageRate)
+                    directionToEnemy = hit.transform.position - transform.position;
+
+                    if (Vector3.Angle(directionToEnemy, transform.right) >= spotLight.spotAngle && Vector3.Distance(hit.transform.position, transform.position) <= spotLight.range)
                     {
-                        hit.transform.gameObject.SendMessage("Damage", damage);
-                        curTime = 0;
+                        curTime += Time.deltaTime;
+                        curTime2 += Time.deltaTime;
+                        hit.transform.gameObject.SendMessage("FlashlightSlow", stunRate);
+                        if (curTime2 >= batteryUseTime)
+                        {
+                            currentBatteryUse -= batteryUseRate;
+                            if (currentBatteryUse <= 0)
+                            {
+                                batteryAmount--;
+                                currentBatteryUse = maxBatteryUse;
+                            }
+                            curTime2 = 0;
+                        }
+                        if (curTime >= damageRate)
+                        {
+                            hit.transform.gameObject.SendMessage("Damage", damage);
+                            curTime = 0;
+                        }
                     }
                 }
                 else
@@ -53,6 +72,11 @@ public class Flashlight : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            spotLight.enabled = false;
+        }
+    
     }
 
 }

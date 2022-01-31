@@ -350,6 +350,11 @@ MonoBehaviour:
   stunRate: 2
   levelManager: {fileID: 0}
   gridSys: {fileID: 0}
+  batteryUseRate: 0
+  batteryUseTime: 0.05
+  maxBatteryUse: 0
+  currentBatteryUse: 0
+  batteryAmount: 0
 --- !u!108 &123676522
 Light:
   m_ObjectHideFlags: 0
@@ -1104,7 +1109,11 @@ MonoBehaviour:
   damageRate: 0.5
   stunRate: 2
   levelManager: {fileID: 0}
-  gridSys: {fileID: 0}
+  batteryUseRate: 0
+  batteryUseTime: 0.05
+  maxBatteryUse: 0
+  currentBatteryUse: 0
+  batteryAmount: 0
 --- !u!108 &520835155
 Light:
   m_ObjectHideFlags: 0
@@ -3105,6 +3114,11 @@ MonoBehaviour:
   stunRate: 2
   levelManager: {fileID: 0}
   gridSys: {fileID: 0}
+  batteryUseRate: 0
+  batteryUseTime: 0.05
+  maxBatteryUse: 0
+  currentBatteryUse: 0
+  batteryAmount: 0
 --- !u!108 &1753886641
 Light:
   m_ObjectHideFlags: 0
@@ -3216,6 +3230,11 @@ MonoBehaviour:
   stunRate: 2
   levelManager: {fileID: 0}
   gridSys: {fileID: 0}
+  batteryUseRate: 0
+  batteryUseTime: 0.05
+  maxBatteryUse: 0
+  currentBatteryUse: 0
+  batteryAmount: 0
 --- !u!108 &1800522633
 Light:
   m_ObjectHideFlags: 0
@@ -4297,6 +4316,11 @@ MonoBehaviour:
   stunRate: 2
   levelManager: {fileID: 0}
   gridSys: {fileID: 218695632}
+  batteryUseRate: 20
+  batteryUseTime: 0.5
+  maxBatteryUse: 100
+  currentBatteryUse: 100
+  batteryAmount: 2
 --- !u!4 &7746097383974654381
 Transform:
   m_ObjectHideFlags: 0
