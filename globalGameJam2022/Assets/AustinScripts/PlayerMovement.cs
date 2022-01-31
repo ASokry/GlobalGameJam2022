@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -49,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void Dead()
     {
-
+        SceneManager.LoadScene(2);
     }
     public void End()
     {
