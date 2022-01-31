@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/backgound-km/title_screen.unity
+    guid: 24b64b3b416b7d44fbeeb1f502072ef1
+  - enabled: 1
+    path: Assets/Scenes/ScenesAS/mainAS.unity
+    guid: 2d6d77929c7d6034bae6e9f6675d07cc
+  - enabled: 1
+    path: Assets/backgound-km/game_over.unity
+    guid: fce862c50365e744ebfdc37b98376cec
   m_configObjects: {}
