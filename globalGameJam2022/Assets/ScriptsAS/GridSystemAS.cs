@@ -38,6 +38,11 @@ public class GridSystemAS : MonoBehaviour
     private bool haveFlashlight = false;
     private bool encounterEnemy = false;
 
+    private int numOfBatterySquares = 0;
+    private int numOfBatteries = 0;
+    private BatteryObjAS battery = null;
+    private List<Vector2Int> batteryLoc = null;
+
     private void Awake()
     {
         grid = new GameGridAS<GridObjectAS>(gridWidth, gridHeight, cellSize, Vector3.zero, (GameGridAS<GridObjectAS> g, int x, int y) => new GridObjectAS(g, x, y));
@@ -191,7 +196,7 @@ public class GridSystemAS : MonoBehaviour
                 print(dir);
             }
 
-            if (placedObjectForMouseDown != null && placedObjectForMouseDown.GetObjectName() != "Null Object")
+            if (placedObjectForMouseDown != null && placedObjectForMouseDown.GetObjectName() != "Null Object" && placedObjectForMouseDown.GetObjectName() != "Flashlight")
             {
                 ghostFollow = true;
 
@@ -264,7 +269,7 @@ public class GridSystemAS : MonoBehaviour
                 ClearAbsAndGhost();
             }
         }
-
+        BatteryLogic();
         Inventory();
     }
 
@@ -273,13 +278,18 @@ public class GridSystemAS : MonoBehaviour
         encounterEnemy = b;
     }
 
+    public int GetNumOfBatteries()
+    {
+        return numOfBatteries;
+    }
+
     public void BatteryLogic()
     {
         foreach (Vector2Int hand in handSlots)
         {
-            GridObjectAS objectInHandSlot = grid.GetGridObject(new Vector3(hand.x, hand.y));
+            GridObjectAS objectInHandSlot = grid.GetGridObject(hand.x, hand.y);
             PlacedObjectAS placedObjectFromHand = objectInHandSlot.GetPlacedObject();
-            if (placedObjectFromHand.GetObjectName() == "Flashlight")
+            if (placedObjectFromHand != null && placedObjectFromHand.GetObjectName() == "Flashlight")
             {
                 haveFlashlight = true;
                 break;
@@ -287,42 +297,49 @@ public class GridSystemAS : MonoBehaviour
             haveFlashlight = false;
         }
 
-        if (haveFlashlight && encounterEnemy)
+        GridObjectAS objectInBackpack = null;
+        PlacedObjectAS placedObjectInBackpack = null;
+        
+        foreach (Vector2Int slot in backpackSlots)
         {
-            BatteryObjAS battery = null;
-            GridObjectAS objectInBackpack = null;
-            PlacedObjectAS placedObjectInBackpack = null;
-            List<Vector2Int> batteryLoc = null;
-            foreach (Vector2Int slot in backpackSlots)
-            {
-                objectInBackpack = grid.GetGridObject(new Vector3(slot.x, slot.y));
-                placedObjectInBackpack = objectInBackpack.GetPlacedObject();
+            objectInBackpack = grid.GetGridObject(new Vector3(slot.x, slot.y));
+            placedObjectInBackpack = objectInBackpack.GetPlacedObject();
 
-                if (placedObjectInBackpack.GetObjectName() == "Battery")
-                {
-                    battery = placedObjectInBackpack.GetComponent<BatteryObjAS>();
-                    batteryLoc = placedObjectInBackpack.GetComponent<AbstractObjectAS>().GetGridPositionList(new Vector2Int(slot.x, slot.y), placedObjectInBackpack.GetDir()); ;
-                    break;
-                }
+            if (placedObjectInBackpack.GetObjectName() == "Battery")
+            {
+                numOfBatterySquares++;
+            }
+        }
+        numOfBatteries = numOfBatteries / 2;
+
+        foreach (Vector2Int slot in backpackSlots)
+        {
+            objectInBackpack = grid.GetGridObject(new Vector3(slot.x, slot.y));
+            placedObjectInBackpack = objectInBackpack.GetPlacedObject();
+
+            if (placedObjectInBackpack.GetObjectName() == "Battery")
+            {
+                battery = placedObjectInBackpack.GetComponent<BatteryObjAS>();
+                batteryLoc = placedObjectInBackpack.GetComponent<AbstractObjectAS>().GetGridPositionList(new Vector2Int(slot.x, slot.y), placedObjectInBackpack.GetDir());
+                break;
+            }
+        }
+    }
+
+    public void DeleteBattery()
+    {
+        if (battery != null && batteryLoc != null)
+        {
+            if (absObject != null && absObject.GetComponent<PlacedObjectAS>() == battery)
+            {
+                ClearAbsAndGhost();
+                DeleteOldObject();
             }
 
-            float currentBatteryLife = battery.GetBatteryLife();
-            if (currentBatteryLife > 0)
+            battery.GetComponent<PlacedObjectAS>().DestroySelf();
+            foreach (Vector2Int batterySpot in batteryLoc)
             {
-                battery.SetBatteryLife(currentBatteryLife -= Time.deltaTime);
-            }
-            else
-            {
-                if (absObject != null && absObject.GetComponent<PlacedObjectAS>() == battery)
-                {
-                    ClearAbsAndGhost();
-                    DeleteOldObject();
-                }
-                battery.GetComponent<PlacedObjectAS>().DestroySelf();
-                foreach (Vector2Int batterySpot in batteryLoc)
-                {
-                    grid.GetGridObject(batterySpot.x, batterySpot.y).ClearPlacedObject();
-                }
+                grid.GetGridObject(batterySpot.x, batterySpot.y).ClearPlacedObject();
             }
         }
     }
@@ -361,6 +378,7 @@ public class GridSystemAS : MonoBehaviour
             {
                 GridObjectAS gridObject = grid.GetGridObject(coordinate.x, coordinate.y);
                 PlacedObjectAS placedObject = gridObject.GetPlacedObject();
+                //print(gridObject);
                 if (placedObject != null && placedObject.GetObjectName() != "Null Object")
                 {
                     if (absObject != null && absObject.GetComponent<PlacedObjectAS>() == placedObject)

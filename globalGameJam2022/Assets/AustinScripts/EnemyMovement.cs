@@ -47,11 +47,11 @@ public class EnemyMovement : MonoBehaviour
         {
             if(rightHit.collider.tag == "Player")
             {
-                print("works");
+                //print("works");
                 transform.Translate(Vector3.right * curMovementSpeed * Time.deltaTime);
             }
         }
-        print(Vector3.Distance(transform.position, player.transform.position));
+        //print(Vector3.Distance(transform.position, player.transform.position));
         if (Vector3.Distance(transform.position, player.transform.position) <= attackRange)
         {
 
@@ -68,7 +68,7 @@ public class EnemyMovement : MonoBehaviour
     void FlashlightSlow(float stunRate)
     {
         curTime += Time.deltaTime;
-        print("Enemy Slowed");
+        //print("Enemy Slowed");
         if(curTime <= stunRate)
         {
             curMovementSpeed = Mathf.Lerp(fastMovementSpeed, slowMovementSpeed, curTime/stunRate);

@@ -12,6 +12,8 @@ public class Flashlight : MonoBehaviour
     private Vector3 directionToEnemy;
     public LevelManager levelManager;
     private float curTime;
+
+    public GridSystemAS gridSys;
     // Start is called before the first frame update
     void Start()
     {
@@ -38,11 +40,16 @@ public class Flashlight : MonoBehaviour
                 {
                     curTime += Time.deltaTime;
                     hit.transform.gameObject.SendMessage("FlashlightSlow", stunRate);
+                    gridSys.SetEncounterEnemy(true);
                     if(curTime >= damageRate)
                     {
                         hit.transform.gameObject.SendMessage("Damage", damage);
                         curTime = 0;
                     }
+                }
+                else
+                {
+                    gridSys.SetEncounterEnemy(false);
                 }
             }
         }

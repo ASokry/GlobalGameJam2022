@@ -349,6 +349,7 @@ MonoBehaviour:
   damageRate: 0.5
   stunRate: 2
   levelManager: {fileID: 0}
+  gridSys: {fileID: 0}
 --- !u!108 &123676522
 Light:
   m_ObjectHideFlags: 0
@@ -588,7 +589,7 @@ MonoBehaviour:
   - {fileID: 8989757780797547021, guid: 50a14f90c7dad40479e5ed1320f7d4ad, type: 3}
   - {fileID: 8002573895531770540, guid: 1c68bb2c8142208449cd017c21cd02c4, type: 3}
   - {fileID: 385421973774059095, guid: 30fdf09dbebec56489e637045390b711, type: 3}
-  - {fileID: 8950423576318772191, guid: 774dd229f1e205e4a92ad914856939d4, type: 3}
+  - {fileID: 5307941172448045422, guid: 774dd229f1e205e4a92ad914856939d4, type: 3}
   - {fileID: 4973130578714808395, guid: e1b71436a6b8bee4688ef362cae8986f, type: 3}
   - {fileID: 7276992081292489910, guid: 8939e19af319d8646a2d0efe296d4ff1, type: 3}
   pendantLoc:
@@ -1103,6 +1104,7 @@ MonoBehaviour:
   damageRate: 0.5
   stunRate: 2
   levelManager: {fileID: 0}
+  gridSys: {fileID: 0}
 --- !u!108 &520835155
 Light:
   m_ObjectHideFlags: 0
@@ -3102,6 +3104,7 @@ MonoBehaviour:
   damageRate: 0.5
   stunRate: 2
   levelManager: {fileID: 0}
+  gridSys: {fileID: 0}
 --- !u!108 &1753886641
 Light:
   m_ObjectHideFlags: 0
@@ -3212,6 +3215,7 @@ MonoBehaviour:
   damageRate: 0.5
   stunRate: 2
   levelManager: {fileID: 0}
+  gridSys: {fileID: 0}
 --- !u!108 &1800522633
 Light:
   m_ObjectHideFlags: 0
@@ -4092,7 +4096,7 @@ MonoBehaviour:
   fastMovementSpeed: 2.5
   curMovementSpeed: 0
   stopped: 0
-  bullets: 2
+  bullets: 0
   animator: {fileID: 7746097383912560347}
 --- !u!1 &7746097383912560344
 GameObject:
@@ -4292,6 +4296,7 @@ MonoBehaviour:
   damageRate: 0.5
   stunRate: 2
   levelManager: {fileID: 0}
+  gridSys: {fileID: 218695632}
 --- !u!4 &7746097383974654381
 Transform:
   m_ObjectHideFlags: 0

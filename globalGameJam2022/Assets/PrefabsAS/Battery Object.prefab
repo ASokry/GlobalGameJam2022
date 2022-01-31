@@ -92,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7003791882060114043}
   - component: {fileID: 5100195963994794559}
-  - component: {fileID: 8950423576318772191}
+  - component: {fileID: 5307941172448045422}
   m_Layer: 0
   m_Name: Battery Object
   m_TagString: Untagged
@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91c8cf1a950237844a7465e8ea45d75f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8950423576318772191
+--- !u!114 &5307941172448045422
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -136,13 +136,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 8469919265799167724}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3f360e28ab7c7c4e8256bcf5d9678bd, type: 3}
+  m_Script: {fileID: 11500000, guid: 5886b2166fbfa534a97c2bf6dbc675fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nameString: Battery Object
+  nameString: Battery
   prefab: {fileID: 7003791882060114043}
   visual: {fileID: 2692760670406463457, guid: 01c77554fe2e87d4ab3fad29177d8cab, type: 3}
-  objType: 1
+  objType: 0
   downCoordinatesList:
   - {x: 0, y: 0}
   - {x: 0, y: 1}
@@ -157,3 +157,4 @@ MonoBehaviour:
   - {x: -1, y: 0}
   width: 1
   height: 2
+  batteryLife: 50

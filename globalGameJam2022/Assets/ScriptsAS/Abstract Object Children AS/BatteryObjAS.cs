@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BatteryObjAS : AbstractObjectAS
 {
-    private float batteryLife = 50f;
+    [SerializeField] private float batteryLife = 50f;
 
     public float GetBatteryLife()
     {
