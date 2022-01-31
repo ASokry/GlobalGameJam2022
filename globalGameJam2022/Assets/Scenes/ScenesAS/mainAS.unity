@@ -259,7 +259,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 95193791}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -332,7 +332,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &123676521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -442,6 +442,10 @@ PrefabInstance:
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 7746097383269149289}
+    - target: {fileID: 1318203439973429860, guid: bd979af34be7dc549b8b9f1e1a7b9ecb, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1318203439973429862, guid: bd979af34be7dc549b8b9f1e1a7b9ecb, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -558,6 +562,10 @@ PrefabInstance:
     - target: {fileID: 2127042018396286652, guid: a197d0ab327aad948ace449c041f10a7, type: 3}
       propertyPath: m_Name
       value: Enemy SpawnTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 2127042018396286654, guid: a197d0ab327aad948ace449c041f10a7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a197d0ab327aad948ace449c041f10a7, type: 3}
@@ -938,7 +946,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 496181003}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1019,7 +1027,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519230203}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1092,7 +1100,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &520835154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1109,6 +1117,7 @@ MonoBehaviour:
   damageRate: 0.5
   stunRate: 2
   levelManager: {fileID: 0}
+  gridSys: {fileID: 0}
   batteryUseRate: 0
   batteryUseTime: 0.05
   maxBatteryUse: 0
@@ -1453,6 +1462,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6174289027356448663, guid: ccb981438534d604ea0eade8074a2779, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6174289027356448745, guid: ccb981438534d604ea0eade8074a2779, type: 3}
       propertyPath: m_Name
       value: AnimationTrigger (6)
@@ -1673,7 +1686,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705542571}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1736,6 +1749,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 845025236584895056, guid: 03d733a21ed871748829658cc1ff543c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 845025236584895058, guid: 03d733a21ed871748829658cc1ff543c, type: 3}
       propertyPath: levelManager
       value: 
@@ -1856,6 +1873,10 @@ PrefabInstance:
     - target: {fileID: 2127042018396286652, guid: a197d0ab327aad948ace449c041f10a7, type: 3}
       propertyPath: m_Name
       value: Enemy SpawnTrigger (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2127042018396286654, guid: a197d0ab327aad948ace449c041f10a7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a197d0ab327aad948ace449c041f10a7, type: 3}
@@ -2070,6 +2091,10 @@ PrefabInstance:
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 7746097383269149289}
+    - target: {fileID: 1318203439973429860, guid: bd979af34be7dc549b8b9f1e1a7b9ecb, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1318203439973429862, guid: bd979af34be7dc549b8b9f1e1a7b9ecb, type: 3}
       propertyPath: m_RootOrder
       value: 25
@@ -2187,6 +2212,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy SpawnTrigger (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2127042018396286654, guid: a197d0ab327aad948ace449c041f10a7, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a197d0ab327aad948ace449c041f10a7, type: 3}
 --- !u!1001 &1105375997
@@ -2196,6 +2225,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 845025236584895056, guid: 03d733a21ed871748829658cc1ff543c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 845025236584895058, guid: 03d733a21ed871748829658cc1ff543c, type: 3}
       propertyPath: levelManager
       value: 
@@ -2261,6 +2294,10 @@ PrefabInstance:
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 7746097383269149289}
+    - target: {fileID: 1318203439973429860, guid: bd979af34be7dc549b8b9f1e1a7b9ecb, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1318203439973429862, guid: bd979af34be7dc549b8b9f1e1a7b9ecb, type: 3}
       propertyPath: m_RootOrder
       value: 27
@@ -2467,6 +2504,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6174289027356448663, guid: ccb981438534d604ea0eade8074a2779, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6174289027356448745, guid: ccb981438534d604ea0eade8074a2779, type: 3}
       propertyPath: m_Name
       value: AnimationTrigger (5)
@@ -2582,6 +2623,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 845025236584895056, guid: 03d733a21ed871748829658cc1ff543c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 845025236584895058, guid: 03d733a21ed871748829658cc1ff543c, type: 3}
       propertyPath: levelManager
       value: 
@@ -2695,6 +2740,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6174289027356448663, guid: ccb981438534d604ea0eade8074a2779, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6174289027356448745, guid: ccb981438534d604ea0eade8074a2779, type: 3}
       propertyPath: m_Name
       value: AnimationTrigger (2)
@@ -2758,6 +2807,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6174289027356448661, guid: ccb981438534d604ea0eade8074a2779, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174289027356448663, guid: ccb981438534d604ea0eade8074a2779, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6174289027356448745, guid: ccb981438534d604ea0eade8074a2779, type: 3}
@@ -3096,7 +3149,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1753886640
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3212,7 +3265,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1800522632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3336,7 +3389,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1834436495}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -3668,6 +3721,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6174289027356448663, guid: ccb981438534d604ea0eade8074a2779, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6174289027356448745, guid: ccb981438534d604ea0eade8074a2779, type: 3}
       propertyPath: m_Name
       value: AnimationTrigger (3)
@@ -3733,6 +3790,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6174289027356448663, guid: ccb981438534d604ea0eade8074a2779, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6174289027356448745, guid: ccb981438534d604ea0eade8074a2779, type: 3}
       propertyPath: m_Name
       value: AnimationTrigger (4)
@@ -3764,7 +3825,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2024040487}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -3877,6 +3938,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6174289027356448661, guid: ccb981438534d604ea0eade8074a2779, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6174289027356448663, guid: ccb981438534d604ea0eade8074a2779, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6174289027356448745, guid: ccb981438534d604ea0eade8074a2779, type: 3}
@@ -4320,7 +4385,7 @@ MonoBehaviour:
   batteryUseTime: 0.5
   maxBatteryUse: 100
   currentBatteryUse: 100
-  batteryAmount: 2
+  batteryAmount: 0
 --- !u!4 &7746097383974654381
 Transform:
   m_ObjectHideFlags: 0
@@ -4443,7 +4508,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8516774178129839398}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

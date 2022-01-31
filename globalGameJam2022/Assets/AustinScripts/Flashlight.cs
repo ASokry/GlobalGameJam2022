@@ -19,7 +19,7 @@ public class Flashlight : MonoBehaviour
     public float batteryUseTime = .05f;
     public float maxBatteryUse;
     public float currentBatteryUse;
-    public int batteryAmount = 2;
+    public int batteryAmount;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +29,7 @@ public class Flashlight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        batteryAmount = gridSys.GetNumOfBatteries();
         if(batteryAmount > 0)
         {
 
@@ -54,7 +54,8 @@ public class Flashlight : MonoBehaviour
                             currentBatteryUse -= batteryUseRate;
                             if (currentBatteryUse <= 0)
                             {
-                                batteryAmount--;
+                                //batteryAmount--;
+                                gridSys.DeleteBattery();
                                 currentBatteryUse = maxBatteryUse;
                             }
                             curTime2 = 0;

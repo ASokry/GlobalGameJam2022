@@ -285,7 +285,7 @@ public class GridSystemAS : MonoBehaviour
 
     public void BatteryLogic()
     {
-        foreach (Vector2Int hand in handSlots)
+        /*foreach (Vector2Int hand in handSlots)
         {
             GridObjectAS objectInHandSlot = grid.GetGridObject(hand.x, hand.y);
             PlacedObjectAS placedObjectFromHand = objectInHandSlot.GetPlacedObject();
@@ -295,29 +295,31 @@ public class GridSystemAS : MonoBehaviour
                 break;
             }
             haveFlashlight = false;
-        }
+        }*/
 
-        GridObjectAS objectInBackpack = null;
-        PlacedObjectAS placedObjectInBackpack = null;
+        GridObjectAS objectInBackpack;
+        PlacedObjectAS placedObjectInBackpack;
         
         foreach (Vector2Int slot in backpackSlots)
         {
-            objectInBackpack = grid.GetGridObject(new Vector3(slot.x, slot.y));
+            objectInBackpack = grid.GetGridObject(slot.x, slot.y);
             placedObjectInBackpack = objectInBackpack.GetPlacedObject();
 
-            if (placedObjectInBackpack.GetObjectName() == "Battery")
+            if (placedObjectInBackpack != null && placedObjectInBackpack.GetObjectName() == "Battery")
             {
                 numOfBatterySquares++;
             }
         }
-        numOfBatteries = numOfBatteries / 2;
+        numOfBatteries = numOfBatterySquares/2;
+        numOfBatterySquares = 0;
+        //print(numOfBatteries);
 
         foreach (Vector2Int slot in backpackSlots)
         {
-            objectInBackpack = grid.GetGridObject(new Vector3(slot.x, slot.y));
+            objectInBackpack = grid.GetGridObject(slot.x, slot.y);
             placedObjectInBackpack = objectInBackpack.GetPlacedObject();
 
-            if (placedObjectInBackpack.GetObjectName() == "Battery")
+            if (placedObjectInBackpack != null && placedObjectInBackpack.GetObjectName() == "Battery")
             {
                 battery = placedObjectInBackpack.GetComponent<BatteryObjAS>();
                 batteryLoc = placedObjectInBackpack.GetComponent<AbstractObjectAS>().GetGridPositionList(new Vector2Int(slot.x, slot.y), placedObjectInBackpack.GetDir());
